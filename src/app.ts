@@ -1,15 +1,20 @@
 import express, { Express } from 'express'
 import { Server } from 'http';
 import { authRouter } from './auth/auth';
+import { LoggerService } from './logger/logger.service';
 
 export class App {
     app: Express;
     server: Server;
     port: number;
+    logger: LoggerService
 
-    constructor() {
+    constructor(
+        loggerService: LoggerService
+    ) {
         this.app = express();
         this.port = 5000;
+        this.logger = loggerService
     }
 
     useRoutes() {
@@ -20,6 +25,7 @@ export class App {
     public async init() {
         await this.useRoutes();
         this.app.listen(this.port)
-        console.log(`Server is running on port ${this.port}`);
+
+        this.logger.log(`Server is running on port ${this.port}`)
     }
 }
