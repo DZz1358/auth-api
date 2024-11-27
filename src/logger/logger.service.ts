@@ -5,7 +5,7 @@ export class LoggerService {
 
     constructor() {
         this.logger = new Logger({
-            name: 'auth-api',
+            prettyLogTimeZone: 'local'
         });
     }
 
